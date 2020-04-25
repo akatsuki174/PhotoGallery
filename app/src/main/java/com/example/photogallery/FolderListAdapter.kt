@@ -8,18 +8,18 @@ import android.widget.BaseAdapter
 import kotlinx.android.synthetic.main.list_item_folder.view.*
 
 class FolderListAdapter : BaseAdapter() {
-    private var folders = mutableListOf<String>()
+    private var folders: ArrayList<FolderHolderData> = arrayListOf()
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_folder, parent, false)
         val item = getItem(position)
-        view.name.text = item
+        view.name.text = item.name
         return view
     }
 
-    override fun getItem(position: Int): String {
+    override fun getItem(position: Int): FolderHolderData {
         return folders[position]
     }
 
@@ -31,8 +31,8 @@ class FolderListAdapter : BaseAdapter() {
         return folders.size
     }
 
-    fun setItem(items: List<String>) {
-        folders = items.toMutableList()
+    fun setItem(items: ArrayList<FolderHolderData>) {
+        folders = items
         notifyDataSetChanged()
     }
 }

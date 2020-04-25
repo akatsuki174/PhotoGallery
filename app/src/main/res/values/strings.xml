@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PhotoGallery</string>
+    <string name="folder_all">すべて</string>
 </resources>
