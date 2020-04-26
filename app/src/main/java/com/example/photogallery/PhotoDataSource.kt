@@ -26,11 +26,11 @@ class PhotoDataSource(private val context: Context) {
         val bucketIds = arrayListOf<String>()
 
         context.contentResolver.query(
-            PHOTO_URI,
-            PHOTO_PROJECTION,
-            null,
-            null,
-            PHOTO_SORT
+            PHOTO_URI,          // テーブル指定
+            PHOTO_PROJECTION,   // 取得したいカラム群
+            null,       // where句のようなもの
+            null,   // where句に変数を渡したいときに使う
+            PHOTO_SORT          // ソート指定
         ).use { cursor ->
             if (cursor == null) {
                 return@use
