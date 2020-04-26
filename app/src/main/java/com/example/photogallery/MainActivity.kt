@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == REQUEST_CODE_PERMISSION && permissions.isNotEmpty() && grantResults.isNotEmpty()) {
             val permission = permissions[0]
             val grantResult = grantResults[0]
-            val requirePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
+            val requirePermission = Manifest.permission.READ_EXTERNAL_STORAGE
             if (permission == requirePermission && grantResult == PackageManager.PERMISSION_GRANTED) {
                 load()
             } else if (permission == requirePermission && grantResult == PackageManager.PERMISSION_DENIED) {
