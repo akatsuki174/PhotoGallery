@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +16,9 @@ class MainActivity : AppCompatActivity() {
         private const val REQUEST_CODE_PERMISSION = 1
     }
 
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
     private val adapter = FolderListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun load() {
-        val dataSource = PhotoDataSource(this)
-        val data = dataSource.fetch()
-        adapter.setItem(data)
+        adapter.setItem(viewModel.loadFolderData())
     }
 
     override fun onRequestPermissionsResult(
