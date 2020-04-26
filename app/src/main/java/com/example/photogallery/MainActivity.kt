@@ -36,6 +36,10 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(permission), REQUEST_CODE_PERMISSION)
         }
         listView.adapter = adapter
+        listView.setOnItemClickListener { _, _, position, _ ->
+            val bucketId = adapter.getItem(position).bucketId
+
+        }
     }
 
     private fun load() {
