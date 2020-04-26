@@ -22,16 +22,16 @@ class PhotoDataSource(private val context: Context) {
         )
 
         private const val PHOTO_SORT = "$PHOTO_DATE_TAKEN DESC, $PHOTO_ID ASC"
-        private const val GROUP_BY = "1) GROUP BY 1,(2"
     }
 
     fun fetch(): ArrayList<FolderHolderData> {
         val holders = arrayListOf<FolderHolderData>()
+        val bucketIds = arrayListOf<String>()
 
         context.contentResolver.query(
             PHOTO_URI,
             PHOTO_PROJECTION,
-            GROUP_BY,
+            null,
             null,
             PHOTO_SORT
         ).use { cursor ->
@@ -54,21 +54,17 @@ class PhotoDataSource(private val context: Context) {
                     // ファイルパスが取得できないケースがある
                      continue
                 }
-                holders.add((FolderHolderData(bucketId = bucketId,
-                    uri = ContentUris.withAppendedId(PHOTO_URI, id),
-                    name = name,
-                    dateTaken = dateTaken)))
+                if (bucketIds.contains(bucketId)) {
+                    continue
+                } else {
+                    holders.add((FolderHolderData(bucketId = bucketId,
+                        uri = ContentUris.withAppendedId(PHOTO_URI, id),
+                        name = name,
+                        dateTaken = dateTaken)))
+                    bucketIds.add(bucketId)
+                }
             }
         }
-
-        // 日付が新しい順にソート
-        holders.sortWith(Comparator { t1, t2 ->
-            return@Comparator when {
-                t1.dateTaken < t2.dateTaken -> 1
-                t1.dateTaken > t2.dateTaken -> -1
-                else -> 0
-            }
-        })
 
         // 「すべて」フォルダのサムネイルを準備
         val uri = if (holders.count() > 0) holders[0].uri else null
