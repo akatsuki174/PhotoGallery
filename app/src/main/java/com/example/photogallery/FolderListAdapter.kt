@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.list_item_folder.view.*
 
 class FolderListAdapter : BaseAdapter() {
@@ -16,6 +18,13 @@ class FolderListAdapter : BaseAdapter() {
             .inflate(R.layout.list_item_folder, parent, false)
         val item = getItem(position)
         view.name.text = item.name
+        Glide.with(view)
+            .load(item.uri)
+            .apply(
+                RequestOptions()
+                .centerCrop()
+            )
+            .into(view.thumbnail)
         return view
     }
 
