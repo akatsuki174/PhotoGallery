@@ -3,7 +3,7 @@ package com.example.photogallery
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class FolderListViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadFolderData(): ArrayList<FolderHolderData> {
         val dataSource = PhotoDataSource(getApplication())

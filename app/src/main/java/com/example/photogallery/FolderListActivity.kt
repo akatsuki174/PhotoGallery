@@ -8,22 +8,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_folder_list.*
 
-class MainActivity : AppCompatActivity() {
+class FolderListActivity : AppCompatActivity() {
 
     companion object {
         private const val REQUEST_CODE_PERMISSION = 1
     }
 
     private val viewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+        ViewModelProvider(this).get(FolderListViewModel::class.java)
     }
     private val adapter = FolderListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_folder_list)
 
         val permission: String = Manifest.permission.READ_EXTERNAL_STORAGE
         if (ContextCompat.checkSelfPermission(
